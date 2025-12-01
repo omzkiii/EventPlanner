@@ -1,15 +1,11 @@
 import axios from "axios";
 
-const API = "http://localhost:8000/";
-
 const api = axios.create({
-  baseURL: API,
+  // baseURL: "/api/",
   headers: { "Content-Type": "application/json" },
 });
 
 export async function fetchData() {
-  const res = await api.get("");
-  console.log(res.data);
-
+  const res = await axios.get("/api/users");
   return res.data;
 }
