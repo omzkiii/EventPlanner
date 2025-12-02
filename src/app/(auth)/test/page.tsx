@@ -8,7 +8,7 @@ import {
   Checkbox,
   Button,
 } from "@heroui/react";
-import Signup from "./components/Signup";
+import Signup from "../../../components/Signup";
 
 export default function App() {
   <>
