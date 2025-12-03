@@ -11,8 +11,8 @@ module.exports = {
   ],
   theme: {
     extend: {
-
-
+      sans: ["var(--font-ubuntu)", "sans-serif"],
+      mono: ["var(--font-ubuntu-mono)", "monospace"],
     },
   },
   darkMode: "class",

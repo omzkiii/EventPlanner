@@ -1,12 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Ubuntu, Ubuntu_Mono } from "next/font/google";
 import "../../assets/globals.css";
 import { ThemeProvider } from "next-themes";
 import Providers from "../../components/providers/provider";
 import { APP_DESC, APP_NAME, SERVER_URL } from "@/lib/constants";
 
 
-const inter = Inter({subsets: ['latin']});
+const ubuntu = Ubuntu({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-ubuntu"
+});
+
+const ubuntuMono = Ubuntu_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-ubuntu-mono"
+});
 
 
 export const metadata: Metadata = {
@@ -26,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.className} antialiased`}
+        className={`${ubuntu.className} ${ubuntuMono.className} antialiased`}
       >
         <ThemeProvider
           attribute="class"

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   Input,
@@ -8,23 +8,28 @@ import {
   Checkbox,
   Button,
 } from "@heroui/react";
+import Link from "next/link";
 
 export default function LoginForm() {
   const [password, setPassword] = React.useState("");
   const [submitted, setSubmitted] = React.useState(null);
   const [errors, setErrors] = React.useState({});
 
+   // Hydration
+   const [mounted, setMounted] = useState(false);
+   // Hydration Effect fixer
+   useEffect(() => {
+       setMounted(true);
+   }, [])
+   if (!mounted) {
+       return null;
+   }
+
   // Real-time password validation
+
+  // Save this for Registration
   const getPasswordError = (value: String) => {
-    if (value.length < 4) {
-      return "Password must be 4 characters or more";
-    }
-    if ((value.match(/[A-Z]/g) || []).length < 1) {
-      return "Password needs at least 1 uppercase letter";
-    }
-    if ((value.match(/[^a-z]/gi) || []).length < 1) {
-      return "Password needs at least 1 symbol";
-    }
+    // Check if valid, throw invalid
 
     return null;
   };
@@ -65,59 +70,49 @@ export default function LoginForm() {
     //   setSubmitted(data);
   };
 
+
   return (
     <Form
-      className="w-full justify-center items-center space-y-4"
+      id="Login"
+      className="w-full justify-self-start my-6"
       validationErrors={errors}
       onReset={() => setSubmitted(null)}
       onSubmit={onSubmit}
     >
-      <div className="flex flex-col gap-4 max-w-md">
+      <div className="flex flex-col gap-4 w-full">
         <Input
           isRequired
           errorMessage={({ validationDetails }) => {
             if (validationDetails.valueMissing) {
-              return "Please enter your name";
-            }
-
-            // return errors.name;
-          }}
-          label="Name"
-          labelPlacement="outside"
-          name="name"
-          placeholder="Enter your name"
-        />
-
-        <Input
-          isRequired
-          errorMessage={({ validationDetails }) => {
-            if (validationDetails.valueMissing) {
-              return "Please enter your email";
+              return "Please enter your username or email address";
             }
             if (validationDetails.typeMismatch) {
-              return "Please enter a valid email address";
+              return "Value entered is invalid";
             }
           }}
-          label="Email"
-          labelPlacement="outside"
-          name="email"
-          placeholder="Enter your email"
-          type="email"
-        />
+          label="Username or Email"
+          labelPlacement="inside"
+          name="identifier"
+        /> {/** MAKE CUSTOM EMAIL CHECKER THEN RETURN STRING BACK */}
 
         <Input
           isRequired
-          errorMessage={getPasswordError(password)}
-          isInvalid={getPasswordError(password) !== null}
           label="Password"
-          labelPlacement="outside"
+          labelPlacement="inside"
           name="password"
-          placeholder="Enter your password"
           type="password"
           value={password}
           onValueChange={setPassword}
         />
 
+        <Link
+          href="/register"
+          className="text-secondary text-sm italic underline cursor-pointer"
+        >
+          Forgot your password?
+        </Link>
+
+      { /*
         <Select
           isRequired
           label="Country"
@@ -152,15 +147,24 @@ export default function LoginForm() {
         {/*   <span className="text-danger text-small">{errors.terms}</span> */}
         {/* )} */}
 
-        <div className="flex gap-4">
-          <Button className="w-full" color="primary" type="submit">
-            Submit
+        <div className="flex gap-4 mt-3">
+          <Button className="w-full text-base text-background font-extrabold" color="secondary" type="submit">
+            LOG IN
           </Button>
-          <Button type="reset" variant="bordered">
-            Reset
+          <Button className="text-base" type="reset" variant="bordered">
+            RESET
           </Button>
         </div>
-      </div>
+        <a className="font-mono text-sm text-muted">
+            don't have an account?
+            <Link
+              href="/register"
+              className="text-secondary italic underline cursor-pointer"
+            >
+              Register Here
+            </Link>
+          </a>
+        </div>
 
       {submitted && (
         <div className="text-small text-default-500 mt-4">

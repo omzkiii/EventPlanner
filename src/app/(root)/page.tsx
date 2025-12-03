@@ -1,12 +1,10 @@
-import React from 'react'
-import LoginForm from "@/components/login/loginForm";
+// app/page.tsx (server)
+import { redirect } from "next/navigation";
 
-export default function FormPage() {
-  // Page for validation logic
+export default function RootPage() {
+  // Option A: always redirect to /login
+  redirect("/login");
 
-  return (
-    <div>
-      <LoginForm />
-    </div>
-  )
+  // unreachable, but TS wants a return
+  return null;
 }

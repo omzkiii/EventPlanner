@@ -1,5 +1,5 @@
 # src/Dockerfile
-FROM node:22
+FROM node:22-bullseye-slim
 
 WORKDIR /app
 
