@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "../../assets/globals.css";
-import Providers from "../../components/providers/provider";
 import { ThemeProvider } from "next-themes";
-import Provider from "../../components/providers/provider";
+import Providers from "../../components/providers/provider";
 import { APP_DESC, APP_NAME, SERVER_URL } from "@/lib/constants";
 
 
@@ -35,9 +34,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Provider>
+          <Providers>
             {children}
-          </Provider>
+          </Providers>
         </ThemeProvider>
       </body>
     </html>

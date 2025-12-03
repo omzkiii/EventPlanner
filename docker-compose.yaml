@@ -22,13 +22,17 @@ services:
   app:
     build:
       context: ./src
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile  
     environment:
       DATABASE_URL: ${DATABASE_URL}
+      NODE_ENV: development
+      CHOKIDAR_USEPOLLING: "true"
+      CHOKIDAR_INTERVAL: "500"
+      NEXT_TELEMETRY_DISABLED: "1"
     ports:
       - "3000:3000"
     volumes:
-      - ./src/:/app
+      - ./src:/app
       - /app/node_modules
     networks:
       - network
@@ -37,11 +41,10 @@ services:
     env_file:
       - .env.docker
 
+
 networks:
   network:
     driver: bridge
 
 volumes:
   postgres_data:
-
-

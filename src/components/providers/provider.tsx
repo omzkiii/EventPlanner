@@ -9,7 +9,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={client}>
-      <HeroUIProvider>{children}</HeroUIProvider>;
+      <HeroUIProvider>{children}</HeroUIProvider>
     </QueryClientProvider>
   );
 }
