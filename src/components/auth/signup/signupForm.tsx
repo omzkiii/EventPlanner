@@ -19,10 +19,10 @@ export default function SignupForm() {
   const [mounted, setMounted] = useState(false);
   // Hydration Effect fixer
   useEffect(() => {
-      setMounted(true);
-  }, [])
+    setMounted(true);
+  }, []);
   if (!mounted) {
-      return null;
+    return null;
   }
 
   // Real-time password validation
@@ -100,8 +100,8 @@ export default function SignupForm() {
           label="Username or Email"
           labelPlacement="inside"
           name="identifier"
-        /> {/** MAKE CUSTOM EMAIL CHECKER THEN RETURN STRING BACK */}
-
+        />{" "}
+        {/** MAKE CUSTOM EMAIL CHECKER THEN RETURN STRING BACK */}
         <Input
           isRequired
           label="Password"
@@ -111,15 +111,13 @@ export default function SignupForm() {
           value={password}
           onValueChange={setPassword}
         />
-
         <Link
           href="/register"
           className="text-secondary text-sm italic underline cursor-pointer"
         >
           Forgot your password?
         </Link>
-
-      { /*
+        {/*
         <Select
           isRequired
           label="Country"
@@ -153,9 +151,12 @@ export default function SignupForm() {
         {/* {errors.terms && ( */}
         {/*   <span className="text-danger text-small">{errors.terms}</span> */}
         {/* )} */}
-
         <div className="flex gap-4 mt-3">
-          <Button className="w-full text-base text-background font-extrabold" color="secondary" type="submit">
+          <Button
+            className="w-full text-base text-background font-extrabold"
+            color="secondary"
+            type="submit"
+          >
             LOG IN
           </Button>
           <Button className="text-base" type="reset" variant="bordered">
@@ -163,15 +164,15 @@ export default function SignupForm() {
           </Button>
         </div>
         <a className="font-mono text-sm text-muted">
-            {"don't have an account? "}
-            <Link
-              href="/register"
-              className="text-secondary italic underline cursor-pointer"
-            >
-              Register Here
-            </Link>
-          </a>
-        </div>
+          {"don't have an account? "}
+        </a>
+        <Link
+          href="/register"
+          className="text-secondary italic underline cursor-pointer"
+        >
+          Register Here
+        </Link>
+      </div>
 
       {submitted && (
         <div className="text-small text-default-500 mt-4">

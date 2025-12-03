@@ -15,15 +15,17 @@ export default function LoginForm() {
   const [submitted, setSubmitted] = React.useState(null);
   const [errors, setErrors] = React.useState({});
 
-   // Hydration
-   const [mounted, setMounted] = useState(false);
-   // Hydration Effect fixer
-   useEffect(() => {
-       setMounted(true);
-   }, [])
-   if (!mounted) {
-       return null;
-   }
+  // // Hydration
+  // const [mounted, setMounted] = useState(false);
+  // // Hydration Effect fixer
+  // useEffect(() => {
+  //   console.log("TEST");
+  //
+  //   setMounted(true);
+  // }, []);
+  // if (!mounted) {
+  //   return null;
+  // }
 
   // Real-time password validation
 
@@ -70,7 +72,6 @@ export default function LoginForm() {
     //   setSubmitted(data);
   };
 
-
   return (
     <Form
       id="Login"
@@ -93,8 +94,8 @@ export default function LoginForm() {
           label="Username or Email"
           labelPlacement="inside"
           name="identifier"
-        /> {/** MAKE CUSTOM EMAIL CHECKER THEN RETURN STRING BACK */}
-
+        />{" "}
+        {/** MAKE CUSTOM EMAIL CHECKER THEN RETURN STRING BACK */}
         <Input
           isRequired
           label="Password"
@@ -104,15 +105,13 @@ export default function LoginForm() {
           value={password}
           onValueChange={setPassword}
         />
-
         <Link
           href="/register"
           className="text-secondary text-sm italic underline cursor-pointer"
         >
           Forgot your password?
         </Link>
-
-      { /*
+        {/*
         <Select
           isRequired
           label="Country"
@@ -146,25 +145,26 @@ export default function LoginForm() {
         {/* {errors.terms && ( */}
         {/*   <span className="text-danger text-small">{errors.terms}</span> */}
         {/* )} */}
-
         <div className="flex gap-4 mt-3">
-          <Button className="w-full text-base text-background font-extrabold" color="secondary" type="submit">
+          <Button
+            className="w-full text-base text-background font-extrabold"
+            color="secondary"
+            type="submit"
+          >
             LOG IN
           </Button>
           <Button className="text-base" type="reset" variant="bordered">
             RESET
           </Button>
         </div>
-        <a className="font-mono text-sm text-muted">
-            don't have an account?
-            <Link
-              href="/register"
-              className="text-secondary italic underline cursor-pointer"
-            >
-              Register Here
-            </Link>
-          </a>
-        </div>
+        <a className="font-mono text-sm text-muted">don't have an account?</a>
+        <Link
+          href="/register"
+          className="text-secondary italic underline cursor-pointer"
+        >
+          Register Here
+        </Link>
+      </div>
 
       {submitted && (
         <div className="text-small text-default-500 mt-4">

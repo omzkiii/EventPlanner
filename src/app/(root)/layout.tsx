@@ -5,27 +5,25 @@ import { ThemeProvider } from "next-themes";
 import Providers from "../../components/providers/provider";
 import { APP_DESC, APP_NAME, SERVER_URL } from "@/lib/constants";
 
-
 const ubuntu = Ubuntu({
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
-  variable: "--font-ubuntu"
+  variable: "--font-ubuntu",
 });
 
 const ubuntuMono = Ubuntu_Mono({
   subsets: ["latin"],
   weight: ["400", "700"],
-  variable: "--font-ubuntu-mono"
+  variable: "--font-ubuntu-mono",
 });
-
 
 export const metadata: Metadata = {
   title: {
     template: `%s | Event`,
-    default: APP_NAME
+    default: APP_NAME,
   },
   description: APP_DESC,
-  metadataBase: new URL(SERVER_URL)
+  metadataBase: new URL(SERVER_URL),
 };
 
 export default function RootLayout({
@@ -44,9 +42,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Providers>
-            {children}
-          </Providers>
+          <Providers>{children}</Providers>
         </ThemeProvider>
       </body>
     </html>
