@@ -5,11 +5,9 @@
 @tailwind utilities;
 
 @import "tw-animate-css";
-@plugin '../app/hero.ts';
 
 @plugin "tailwindcss-animate";
 /* Note: You may need to change the path to fit your project structure */
-@source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

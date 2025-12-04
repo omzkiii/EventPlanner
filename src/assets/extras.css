@@ -1,30 +1,38 @@
 #oAuth {
     border-top: 1px solid gray;
     position: relative;
+    overflow:visible;
 }
 
 #oAuth::before {
     content: "Or Authorize With";
     position: absolute;
-    background-color: #1E201E;
     left: 50%;
     transform: translateX(-50%);
-    padding: 2px 1.5rem ;
-    top:-1rem;
-    font-size: 0.875rem;  
+    top: -.75rem;
+  
+    display: inline-block;      
+    width: max-content;          
+    max-width: 75%;              
+    box-sizing: border-box;      
+    padding: 2px 1rem;
+  
+    white-space: nowrap;         /* Prevent wrapping */
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+    background: #1E201E;
 }
 
-#Login Button,
+
+
+
+#Login,
 #oAuth Button {
+    cursor: pointer;
     transition: 0.2s transform cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform: translateY(0);
 }
 
-#Login Button:hover,
+#Login:hover,
 #oAuth Button:hover {
     transform: translateY(2px);
-}
-
-#Login Link:hover {
-    opacity: 0;
 }
