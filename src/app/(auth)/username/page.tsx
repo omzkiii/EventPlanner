@@ -53,6 +53,8 @@ export default function Username() {
                 id="username"
                 name="username"
                 type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 autoComplete="username"
               />
             </div>
