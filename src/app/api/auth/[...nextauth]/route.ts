@@ -18,6 +18,34 @@ export const authOption: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        const dbUser = await prisma.user.findUnique({
+          where: { email: user.email! },
+        });
+
+        token.username = dbUser?.username ?? null;
+        token.id = dbUser?.id!;
+      }
+      if (token) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.id },
+        });
+
+        token.username = dbUser?.username ?? null;
+      }
+      console.log("JWT SET");
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.username = token.username;
+      }
+      return session;
+    },
+
     async signIn({ profile }) {
       if (!profile?.email) {
         throw new Error("No profile");

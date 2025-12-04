@@ -1,4 +1,9 @@
 @import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "tw-animate-css";
 @plugin '../app/hero.ts';
 
@@ -10,7 +15,6 @@
 @theme inline {
   --font-sans: var(--font-ubuntu);
   --font-mono: var(--font-ubuntu-mono);
-
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -54,70 +58,70 @@
 :root {
   --radius: 0.625rem;
 
-  --background: #ECDFCC; /* dark */
-  --foreground: #1E201E; /* contrast text */
+  --background: #ecdfcc; /* dark */
+  --foreground: #1e201e; /* contrast text */
 
-  --card: #3C3D37;
-  --card-foreground: #ECDFCC;
-  --popover: #3C3D37;
-  --popover-foreground: #ECDFCC;
+  --card: #3c3d37;
+  --card-foreground: #ecdfcc;
+  --popover: #3c3d37;
+  --popover-foreground: #ecdfcc;
 
   --primary: #697565;
-  --primary-foreground: #ECDFCC;
+  --primary-foreground: #ecdfcc;
 
-  --secondary: #1E201E;
-  --secondary-foreground: #1E201E;
+  --secondary: #1e201e;
+  --secondary-foreground: #1e201e;
 
   --muted: #697565;
-  --muted-foreground: #ECDFCC;
+  --muted-foreground: #ecdfcc;
 
   --accent: #697565;
-  --accent-foreground: #1E201E;
+  --accent-foreground: #1e201e;
 
-  --destructive: #E06B6B;
-  --border: rgba(236,223,204,0.10); /* subtle border on dark */
-  --input: rgba(236,223,204,0.15);
+  --destructive: #e06b6b;
+  --border: rgba(236, 223, 204, 0.1); /* subtle border on dark */
+  --input: rgba(236, 223, 204, 0.15);
   --ring: #697565;
 
-  --chart-1: #A6B09F;
-  --chart-2: #86A08B;
+  --chart-1: #a6b09f;
+  --chart-2: #86a08b;
   --chart-3: #697565;
-  --chart-4: #3C3D37;
-  --chart-5: #1E201E;
+  --chart-4: #3c3d37;
+  --chart-5: #1e201e;
 }
 
 /* ========== Dark Theme ========== */
 .dark {
-  --background: #1E201E;
-  --foreground: #ECDFCC;
+  --background: #1e201e;
+  --foreground: #ecdfcc;
 
-  --card: #3C3D37;
-  --card-foreground: #ECDFCC;
-  --popover: #3C3D37;
-  --popover-foreground: #ECDFCC;
+  --card: #3c3d37;
+  --card-foreground: #ecdfcc;
+  --popover: #3c3d37;
+  --popover-foreground: #ecdfcc;
 
   --primary: #697565;
-  --primary-foreground: #ECDFCC;
+  --primary-foreground: #ecdfcc;
 
-  --secondary: #ECDFCC;
-  --secondary-foreground: #ECDFCC;
+  --secondary: #ecdfcc;
+  --secondary-foreground: #ecdfcc;
 
   --muted: #697565;
-  --muted-foreground: #ECDFCC;
+  --muted-foreground: #ecdfcc;
 
   --accent: #697565;
-  --accent-foreground: #1E201E;
+  --accent-foreground: #1e201e;
 
-  --destructive: #E06B6B;
-  --border: rgba(236,223,204,0.10);
-  --input: rgba(236,223,204,0.15);
+  --destructive: #e06b6b;
+  --border: rgba(236, 223, 204, 0.1);
+  --input: rgba(236, 223, 204, 0.15);
   --ring: #697565;
 
-  --chart-1: #A6B09F;
-  --chart-2: #86A08B;
+  --chart-1: #a6b09f;
+  --chart-2: #86a08b;
   --chart-3: #697565;
-  --chart-4: #3C3D37;
-  --chart-5: #1E201E;
+  --chart-4: #3c3d37;
+  --chart-5: #1e201e;
 }
 
 @layer base {
