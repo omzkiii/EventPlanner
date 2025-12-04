@@ -1,8 +1,6 @@
 services:
   database:
     image: postgres:16
-    env_file:
-      - .env.docker
     container_name: postgres_db
     restart: always
     environment:
@@ -20,13 +18,13 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env.docker
 
   app:
     build:
       context: ./src
       dockerfile: Dockerfile
-    env_file:
-      - .env.docker
     environment:
       - DATABASE_URL:${DATABASE_URL}
       - NODE_ENV:development
@@ -39,11 +37,12 @@ services:
       - ./src:/app
       - /app/node_modules
       - /app/.next
-
     networks:
       - network
     depends_on:
       - database
+    env_file:
+      - .env.docker
 
 networks:
   network:

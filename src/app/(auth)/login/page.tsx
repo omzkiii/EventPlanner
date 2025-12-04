@@ -1,6 +1,7 @@
 import LoginForm from "@/components/auth/login/loginForm";
 import "@/assets/extras.css";
 import Auths from "@/components/auth/auths";
+import { Suspense } from "react";
 
 export default function FormPage() {
   // Page for validation logic

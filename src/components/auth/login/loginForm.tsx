@@ -1,26 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Form,
-  Input,
-  Select,
-  SelectItem,
-  Checkbox,
-  Button,
-} from "@heroui/react";
 import Link from "next/link";
 
 export default function LoginForm() {
+  const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [submitted, setSubmitted] = React.useState(null);
   const [errors, setErrors] = React.useState({});
 
-  // // Hydration
-  // const [mounted, setMounted] = useState(false);
-  // // Hydration Effect fixer
+  // Hydration
+  const [mounted, setMounted] = useState(false);
+  // Hydration Effect fixer
   // useEffect(() => {
-  //   console.log("TEST");
-  //
   //   setMounted(true);
   // }, []);
   // if (!mounted) {
@@ -73,37 +64,27 @@ export default function LoginForm() {
   };
 
   return (
-    <Form
+    <form
       id="Login"
       className="w-full justify-self-start my-6"
-      validationErrors={errors}
       onReset={() => setSubmitted(null)}
       onSubmit={onSubmit}
     >
       <div className="flex flex-col gap-4 w-full">
-        <Input
-          isRequired
-          errorMessage={({ validationDetails }) => {
-            if (validationDetails.valueMissing) {
-              return "Please enter your username or email address";
-            }
-            if (validationDetails.typeMismatch) {
-              return "Value entered is invalid";
-            }
-          }}
-          label="Username or Email"
-          labelPlacement="inside"
-          name="identifier"
-        />{" "}
+        <label>email</label>
+        <input
+          value={email}
+          onChange={(
+            e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+          ) => setEmail(e.target.value)}
+        />
         {/** MAKE CUSTOM EMAIL CHECKER THEN RETURN STRING BACK */}
-        <Input
-          isRequired
-          label="Password"
-          labelPlacement="inside"
-          name="password"
-          type="password"
+        <label>password</label>
+        <input
           value={password}
-          onValueChange={setPassword}
+          onChange={(
+            e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+          ) => setPassword(e.target.value)}
         />
         <Link
           href="/register"
@@ -146,16 +127,16 @@ export default function LoginForm() {
         {/*   <span className="text-danger text-small">{errors.terms}</span> */}
         {/* )} */}
         <div className="flex gap-4 mt-3">
-          <Button
+          <button
             className="w-full text-base text-background font-extrabold"
             color="secondary"
             type="submit"
           >
             LOG IN
-          </Button>
-          <Button className="text-base" type="reset" variant="bordered">
+          </button>
+          <button className="text-base" type="reset">
             RESET
-          </Button>
+          </button>
         </div>
         <a className="font-mono text-sm text-muted">don't have an account?</a>
         <Link
@@ -171,6 +152,6 @@ export default function LoginForm() {
           Submitted data: <pre>{JSON.stringify(submitted, null, 2)}</pre>
         </div>
       )}
-    </Form>
+    </form>
   );
 }
