@@ -10,6 +10,7 @@ const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 export const authOption: NextAuthOptions = {
   session: {
     strategy: "jwt",
+    // maxAge: 5 // 5 mins
   },
   providers: [
     GoogleProvider({

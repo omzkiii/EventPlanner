@@ -91,9 +91,13 @@ function GuestDialog(): JSX.Element | null {
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button 
+              id="Close-Btn"
+              variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit"> Log-in </Button>
+            <Button 
+            id="Log-Btn"
+            type="submit"> Log-in </Button>
           </DialogFooter>
 
         </DialogContent>

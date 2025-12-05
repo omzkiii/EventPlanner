@@ -23,14 +23,30 @@ export default function Username() {
   const updateUsername = async (username: string) => {
     if (!session?.user?.email) return;
 
-    await fetch("/api/auth/username", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username }),
-    });
+    try {
+      const res = await fetch("/api/auth/username", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username }),
+      });
 
-    await update();
-    router.push("/");
+      const data = await res.json(); 
+
+      if (!res.ok) {
+        console.error("Update failed:", data);
+        alert(data.error || "Something went wrong updating username");
+        return;
+      }
+    
+      await update(); 
+      router.refresh();
+    
+      router.push("/");
+    } catch(err) {
+      console.error("Unexpected error:", err);
+      alert("Network error while updating username");
+    }
+    
   };
 
   return (
@@ -63,6 +79,7 @@ export default function Username() {
 
         <CardFooter>
           <Button
+            id="Usr-Btn"
             onClick={() => {
               updateUsername(username);
             }}

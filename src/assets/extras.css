@@ -26,6 +26,9 @@
 
 
 #Login,
+#Usr-Btn,
+#Log-Btn,
+#Close-Btn,
 #oAuth Button {
     cursor: pointer;
     transition: 0.2s transform cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -33,6 +36,9 @@
 }
 
 #Login:hover,
+#Usr-Btn:hover,
+#Log-Btn:hover,
+#Close-Btn:hover,
 #oAuth Button:hover {
     transform: translateY(2px);
-}
+}   
