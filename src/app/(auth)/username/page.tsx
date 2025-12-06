@@ -10,13 +10,16 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Eye } from "lucide-react";
+import { Eye, Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import "@/assets/extras.css";
 
 export default function Username() {
   const [username, setUsername] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
   const { data: session, update } = useSession();
 
@@ -24,6 +27,8 @@ export default function Username() {
     if (!session?.user?.email) return;
 
     try {
+      setIsLoading(true);
+
       const res = await fetch("/api/auth/username", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,6 +40,7 @@ export default function Username() {
       if (!res.ok) {
         console.error("Update failed:", data);
         alert(data.error || "Something went wrong updating username");
+        setIsLoading(false);
         return;
       }
     
@@ -45,6 +51,10 @@ export default function Username() {
     } catch(err) {
       console.error("Unexpected error:", err);
       alert("Network error while updating username");
+      setIsLoading(false);
+
+    } finally {
+      setIsLoading(false);
     }
     
   };
@@ -83,9 +93,12 @@ export default function Username() {
             onClick={() => {
               updateUsername(username);
             }}
+            disabled={!!isLoading}
             className="w-full"
           >
-            Let's Go!
+            { isLoading ? (
+              <Loader2 className="animate-spin h-5 w-5" />
+            ):  ("Let's Go!") }
           </Button>
         </CardFooter>
       </Card>

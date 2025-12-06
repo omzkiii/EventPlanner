@@ -1,15 +1,49 @@
 import { getServerSession } from "next-auth";
-import { NextResponse, NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { authOption } from "./app/api/auth/[...nextauth]/route";
+import { getToken } from "next-auth/jwt"
 
-export async function proxy(request: NextRequest) {
-  const session = await getServerSession(authOption);
-  console.log(session);
+const PUBLIC_PATHS = [
+  "/",
+  "/login",
+  "/api/auth",
+  "/api/users",
+  "/username"
+]
 
-  if (!session) return NextResponse.redirect(new URL("/login", request.url));
+function isPublicPath(pathname: string) {
+  return (
+    PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/")) ||
+    pathname.startsWith("/_next") ||
+    pathname.includes(".")
+  );
+} 
 
-  if (!session?.user.username)
-    return NextResponse.redirect(new URL("/username", request.url));
+export async function proxy(req: NextRequest) {
+  const pathname = req.nextUrl.pathname;
+
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+  // If it's public
+  if (isPublicPath(pathname)) {
+    // logged in but visiting login or /
+    if (token && (pathname === "/" || pathname === "/login")) {
+      return NextResponse.redirect(new URL("/dsh", req.url));
+    }
+    return NextResponse.next();
+  }
+
+  // Not public  must be authenticated
+  if (!token) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  // Authenticated but missing username
+  if (!token.username && pathname !== "/username") {
+    return NextResponse.redirect(new URL("/username", req.url));
+  }
+
   return NextResponse.next();
 }
 

@@ -7,13 +7,6 @@ import Signout from "@/components/auth/signout";
 export default async function RootPage() {
   const session = await getServerSession(authOption);
 
-  if (!session) {
-    redirect("/login");
-  }
-  return (
-    <>
-      <h1>Home</h1>
-      <Signout />
-    </>
-  );
+  return <div>Loading...</div>;
+
 }
