@@ -24,15 +24,46 @@ import {
   FormField,
 } from "@/components/ui";
 
-import { JSX, useState } from "react";
+import React, { JSX, useEffect, useState } from "react";
 import {Eye, EyeClosed, Loader2} from "lucide-react";
+import { useRouter } from "next/navigation";
+
+
+
 
 function GuestDialog(): JSX.Element | null {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    router.prefetch("/");
+  }, [router]);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>)  {
+    e.preventDefault(); // no reload page
+
+    const form = e.currentTarget;
+    const username = (form.username as HTMLInputElement).value;
+    const password = (form.password as HTMLInputElement).value;
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      username,
+      password,
+    });
+
+    if (res?.error) {
+      console.log("Login Error", res.error);
+      alert("Invalid Details");
+      return;
+    }
+
+    router.refresh();
+  }
 
   return (
     <Dialog>
-      <form>
+      <form onSubmit={handleSubmit}>
         <DialogTrigger asChild>
           <Button variant="outline" id="Login" className="w-full justify-center font-extrabold text-sans"> SIGN IN WITH GUEST ACCOUNT </Button>
         </DialogTrigger>

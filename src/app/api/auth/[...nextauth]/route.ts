@@ -1,6 +1,7 @@
-import { NextAuthOptions } from "next-auth";
+import { Awaitable, NextAuthOptions, RequestInternal } from "next-auth";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
@@ -12,11 +13,39 @@ export const authOption: NextAuthOptions = {
     strategy: "jwt",
     // maxAge: 5 // 5 mins
   },
+
+  // Providers and a Custom Provider
   providers: [
     GoogleProvider({
       clientId: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
     }),
+    /*CredentialsProvider({
+      credentials: {
+        username: {label: "Username", type: "text"},
+        password: {label: "Password", type: "password"}
+      },
+      async authorize(credentials) {
+        if (!credentials?.username || !credentials?.password) return null;
+
+        // Find user
+        const user = await prisma.user.findUnique({
+          where: { username: credentials.username },
+        });
+        if (!user || !user.password) return null;
+
+        // Compare password
+        const valid = await bcrypt.compare(credentials.password, user.passwordHash);
+        if (!valid) return null;
+
+        // Return what goes into jwt "user" field
+        return { 
+          id: user.id, 
+          email: user.email, 
+          username: user.username 
+        };
+      } 
+    })*/
   ],
   callbacks: {
     async jwt({ token, user }) {
