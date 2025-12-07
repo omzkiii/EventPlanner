@@ -2,15 +2,9 @@ import { getServerSession } from "next-auth";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { authOption } from "./app/api/auth/[...nextauth]/route";
-import { getToken } from "next-auth/jwt"
+import { getToken } from "next-auth/jwt";
 
-const PUBLIC_PATHS = [
-  "/",
-  "/login",
-  "/api/auth",
-  "/api/users",
-  "/username"
-]
+const PUBLIC_PATHS = ["/", "/login", "/api/auth", "/api/users", "/username"];
 
 function isPublicPath(pathname: string) {
   return (
@@ -18,7 +12,7 @@ function isPublicPath(pathname: string) {
     pathname.startsWith("/_next") ||
     pathname.includes(".")
   );
-} 
+}
 
 export async function proxy(req: NextRequest) {
   const pathname = req.nextUrl.pathname;

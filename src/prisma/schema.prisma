@@ -15,17 +15,20 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  name     String
-  username String? @unique
-  email    String  @unique
-  events   Event[]
+  id           String  @id @default(uuid())
+  name         String
+  username     String? @unique
+  email        String  @unique
+  ownedEvents  Event[] @relation("ownership")
+  joinedEvents Event[]
 }
 
 model Event {
   id        String   @id @default(uuid())
   name      String
-  timeline  Json
+  timeline  Json?
   attendees User[]
+  ownerId   String
+  owner     User     @relation("ownership", fields: [ownerId], references: [id])
   notes     String[]
 }
