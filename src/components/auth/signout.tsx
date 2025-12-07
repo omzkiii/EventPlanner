@@ -3,11 +3,10 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { Button, Spinner } from "@/components/ui";
 
-
 export default function Signout() {
   const { data: session, status } = useSession();
   return (
-    <div className="flex flex-col justify-start self-start p-10 h-screen w-screen bg-background">
+    <div className="flex flex-col justify-start self-start p-10  bg-background">
       {status === "loading" ? (
         <div>
           <div>loading...</div>
@@ -26,14 +25,13 @@ export default function Signout() {
           />
         </div>
       )}
-      <button
-        className="w-2"
+      <Button
         onClick={() => {
           signOut();
         }}
       >
         Sign out
-      </button>
+      </Button>
     </div>
   );
 }

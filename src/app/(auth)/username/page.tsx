@@ -35,7 +35,7 @@ export default function Username() {
         body: JSON.stringify({ username }),
       });
 
-      const data = await res.json(); 
+      const data = await res.json();
 
       if (!res.ok) {
         console.error("Update failed:", data);
@@ -43,20 +43,18 @@ export default function Username() {
         setIsLoading(false);
         return;
       }
-    
-      await update(); 
+
+      await update();
       router.refresh();
-    
+
       router.push("/");
-    } catch(err) {
+    } catch (err) {
       console.error("Unexpected error:", err);
       alert("Network error while updating username");
       setIsLoading(false);
-
     } finally {
       setIsLoading(false);
     }
-    
   };
 
   return (
@@ -96,9 +94,11 @@ export default function Username() {
             disabled={!!isLoading}
             className="w-full"
           >
-            { isLoading ? (
+            {isLoading ? (
               <Loader2 className="animate-spin h-5 w-5" />
-            ):  ("Let's Go!") }
+            ) : (
+              "Let's Go!"
+            )}
           </Button>
         </CardFooter>
       </Card>
