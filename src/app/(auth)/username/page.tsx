@@ -13,8 +13,9 @@ import { Label } from "@/components/ui/label";
 import { Eye, Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "@/assets/extras.css";
+import UniBtn from "@/components/shared/UniBtn";
 
 export default function Username() {
   const [username, setUsername] = useState("");
@@ -35,7 +36,7 @@ export default function Username() {
         body: JSON.stringify({ username }),
       });
 
-      const data = await res.json(); 
+      const data = await res.json();
 
       if (!res.ok) {
         console.error("Update failed:", data);
@@ -43,21 +44,30 @@ export default function Username() {
         setIsLoading(false);
         return;
       }
-    
-      await update(); 
-      router.refresh();
-    
-      router.push("/");
-    } catch(err) {
+
+      update().catch(() => {});
+
+      try { router.prefetch("/dsh"); } catch {}
+
+      router.replace("/dsh");
+
+    } catch (err) {
       console.error("Unexpected error:", err);
       alert("Network error while updating username");
       setIsLoading(false);
-
     } finally {
       setIsLoading(false);
     }
-    
   };
+
+  //Catch
+  useEffect(() => {
+    if (session === undefined) return;
+  
+    if (session && session.user?.username) {
+      router.replace("/dsh");
+    }
+  }, [session, router]);
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -88,18 +98,10 @@ export default function Username() {
         </CardContent>
 
         <CardFooter>
-          <Button
-            id="Usr-Btn"
-            onClick={() => {
-              updateUsername(username);
-            }}
-            disabled={!!isLoading}
-            className="w-full"
-          >
-            { isLoading ? (
-              <Loader2 className="animate-spin h-5 w-5" />
-            ):  ("Let's Go!") }
-          </Button>
+        <UniBtn
+            Text="Let's Go!"
+            onClick={() => updateUsername(username)}
+          />
         </CardFooter>
       </Card>
     </div>

@@ -2,10 +2,10 @@
 
 import type { Metadata } from "next";
 import { Ubuntu, Ubuntu_Mono } from "next/font/google";
-import "../assets/globals.css";
-import { ThemeProvider } from "next-themes";
+import "@/assets/globals.css";
 import Providers from "../components/providers/provider";
 import { APP_DESC, APP_NAME, SERVER_URL } from "@/lib/constants";
+import {ThemeProvider} from "next-themes"; 
 
 const ubuntu = Ubuntu({
   subsets: ["latin"],

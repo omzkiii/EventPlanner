@@ -1,11 +1,10 @@
 "use client";
 import { SiFacebook, SiGoogle } from "@icons-pack/react-simple-icons";
 import { signIn } from "next-auth/react";
-import { 
+import {
   Button,
   Label,
   Input,
-
   Dialog,
   DialogClose,
   DialogContent,
@@ -14,22 +13,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-
-  Form,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormDescription,
-  FormMessage,
-  FormField,
 } from "@/components/ui";
 
 import React, { JSX, useEffect, useState } from "react";
-import {Eye, EyeClosed, Loader2} from "lucide-react";
+import { Eye, EyeClosed, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-
-
-
+import UniBtn from "../shared/UniBtn";
 
 function GuestDialog(): JSX.Element | null {
   const router = useRouter();
@@ -39,7 +28,7 @@ function GuestDialog(): JSX.Element | null {
     router.prefetch("/");
   }, [router]);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>)  {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); // no reload page
 
     const form = e.currentTarget;
@@ -65,10 +54,17 @@ function GuestDialog(): JSX.Element | null {
     <Dialog>
       <form onSubmit={handleSubmit}>
         <DialogTrigger asChild>
-          <Button variant="outline" id="Login" className="w-full justify-center font-extrabold text-sans"> SIGN IN WITH GUEST ACCOUNT </Button>
+          <Button
+            variant="outline"
+            id="Login"
+            className="w-full justify-center font-extrabold text-sans"
+          >
+            {" "}
+            SIGN IN WITH GUEST ACCOUNT{" "}
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader> 
+          <DialogHeader>
             <DialogTitle className="text-sans font-extrabold">
               Sign in with Email
             </DialogTitle>
@@ -80,10 +76,10 @@ function GuestDialog(): JSX.Element | null {
           <div className="grid gap-4">
             <div className="grid gap-3">
               <Label htmlFor="name-1">Username</Label>
-              <Input 
-                id="username" 
-                name="username" 
-                defaultValue="my-user" 
+              <Input
+                id="username"
+                name="username"
+                defaultValue="my-user"
                 type="text"
                 autoComplete="username"
               />
@@ -91,14 +87,14 @@ function GuestDialog(): JSX.Element | null {
             <div className="grid gap-3">
               <Label htmlFor="username-1">Password</Label>
               <div className="relative">
-                <Input 
-                  id="password" 
-                  name="password" 
-                  type={showPassword ? "text" : "password"} 
-                  placeholder={showPassword ? "password" : "••••••••"} 
-                  autoComplete="current-password" 
+                <Input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder={showPassword ? "password" : "••••••••"}
+                  autoComplete="current-password"
                 />
-                
+
                 {/* The Toggle Button */}
                 <Button
                   type="button"
@@ -108,9 +104,15 @@ function GuestDialog(): JSX.Element | null {
                   onClick={() => setShowPassword((prev) => !prev)}
                 >
                   {showPassword ? (
-                    <EyeClosed className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                    <EyeClosed
+                      className="h-4 w-4 text-muted-foreground"
+                      aria-hidden="true"
+                    />
                   ) : (
-                    <Eye className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                    <Eye
+                      className="h-4 w-4 text-muted-foreground"
+                      aria-hidden="true"
+                    />
                   )}
                   <span className="sr-only">
                     {showPassword ? "Hide password" : "Show password"}
@@ -122,15 +124,15 @@ function GuestDialog(): JSX.Element | null {
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button 
-              id="Close-Btn"
-              variant="outline">Cancel</Button>
+              <Button id="Close-Btn" variant="outline">
+                Cancel
+              </Button>
             </DialogClose>
-            <Button 
-            id="Log-Btn"
-            type="submit"> Log-in </Button>
+            <Button id="Log-Btn" type="submit">
+              {" "}
+              Log-in{" "}
+            </Button>
           </DialogFooter>
-
         </DialogContent>
       </form>
     </Dialog>
@@ -138,7 +140,9 @@ function GuestDialog(): JSX.Element | null {
 }
 
 export default function Auths() {
-  const [isLoading, setIsLoading] = useState<"google" | "facebook" | null>(null);
+  const [isLoading, setIsLoading] = useState<"google" | "facebook" | null>(
+    null,
+  );
 
   const handleLogin = async (provider: "google" | "facebook") => {
     setIsLoading(provider);
@@ -154,42 +158,22 @@ export default function Auths() {
       <GuestDialog />
 
       <div id="oAuth" className="flex flex-col pt-5 mt-5 gap-3">
-        <Button
-          className="w-full"
-          disabled={!!isLoading}
-          onClick={() => handleLogin("google")}
-        > 
-          { isLoading === "google" ? (
-              <Loader2 className="animate-spin h-5 w-5" />
-          ): (
-            <> 
-              <SiGoogle className="w-5 h-5 text-secondary" />
-              Connect with Google
-            </>
-          )}
-          
-          
-        </Button>
-        <Button 
-          className="w-full"
-          disabled={!!isLoading}
-          onClick={() => handleLogin("facebook")}
-        >
-          { isLoading === "facebook" ? (
-              <Loader2 className="animate-spin h-5 w-5" />
-          ): (
-            <> 
-              <SiFacebook className="w-5 h-5 text-secondary" />
-              Connect with Facebook
-            </>
-          )}
-          
-        </Button>
+        <UniBtn
+            Text="Connect with Google"
+            Icon={SiGoogle}
+            onClick={async () => {
+              await handleLogin("google");
+            }}
+          />
+
+          <UniBtn
+            Text="Connect with Facebook"
+            Icon={SiFacebook}
+            onClick={async () => {
+              await handleLogin("facebook");
+            }}
+          />
       </div>
-    
     </>
-
-
-    
   );
 }

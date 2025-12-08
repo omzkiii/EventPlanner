@@ -1,44 +1,20 @@
-#oAuth {
-    border-top: 1px solid gray;
-    position: relative;
-    overflow:visible;
-}
-
-#oAuth::before {
-    content: "Or Authorize With";
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: -.75rem;
-  
-    display: inline-block;      
-    width: max-content;          
-    max-width: 75%;              
-    box-sizing: border-box;      
-    padding: 2px 1rem;
-  
-    white-space: nowrap;         /* Prevent wrapping */
-    font-size: clamp(0.7rem, 1vw, 0.85rem);
-    background: #1E201E;
-}
 
 
-
-
-#Login,
-#Usr-Btn,
-#Log-Btn,
 #Close-Btn,
+.UniBtn,
 #oAuth Button {
     cursor: pointer;
     transition: 0.2s transform cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform: translateY(0);
 }
 
-#Login:hover,
-#Usr-Btn:hover,
-#Log-Btn:hover,
+.UniBtn:hover,
 #Close-Btn:hover,
 #oAuth Button:hover {
     transform: translateY(2px);
 }   
+
+
+#sidebarL {
+    border-radius: 12px 0 0 12px;
+}

@@ -55,72 +55,89 @@
 /* ========== Default/Light Theme ========== */
 :root {
   --radius: 0.625rem;
-
-  --background: #ecdfcc; /* dark */
-  --foreground: #1e201e; /* contrast text */
-
-  --card: #3c3d37;
-  --card-foreground: #ecdfcc;
-  --popover: #3c3d37;
-  --popover-foreground: #ecdfcc;
-
-  --primary: #697565;
-  --primary-foreground: #ecdfcc;
-
-  --secondary: #1e201e;
-  --secondary-foreground: #1e201e;
-
-  --muted: #697565;
-  --muted-foreground: #ecdfcc;
-
-  --accent: #697565;
-  --accent-foreground: #1e201e;
-
+  --background: #EBD5AB; /* Color Hunt light */
+  --foreground: #1B211A;
+  --card: #8BAE66;
+  --card-foreground: #1B211A;
+  --popover: #8BAE66;
+  --popover-foreground: #1B211A;
+  --primary: #628141;
+  --primary-foreground: #EBD5AB;
+  --secondary: #8BAE66;
+  --secondary-foreground: #1B211A;
+  --muted: #8BAE66;
+  --muted-foreground: #1B211A;
+  --accent: #628141;
+  --accent-foreground: #EBD5AB;
   --destructive: #e06b6b;
-  --border: rgba(236, 223, 204, 0.1); /* subtle border on dark */
-  --input: rgba(236, 223, 204, 0.15);
-  --ring: #697565;
+  --border: rgba(27,33,26,0.15);
+  --input: rgba(27,33,26,0.20);
+  --ring: #628141;
 
-  --chart-1: #a6b09f;
-  --chart-2: #86a08b;
-  --chart-3: #697565;
+  --chart-1: #EBD5AB;
+  --chart-2: #8BAE66;
+  --chart-3: #628141;
   --chart-4: #3c3d37;
-  --chart-5: #1e201e;
+  --chart-5: #1B211A;
 }
 
-/* ========== Dark Theme ========== */
-.dark {
+/* Light theme (applies when html has class="light") */
+html.light, body.light,
+html[data-theme="light"], body[data-theme="light"] {
+  --background: #EBD5AB;
+  --foreground: #1B211A;
+  --card: #8BAE66;
+  --card-foreground: #1B211A;
+  --popover: #8BAE66;
+  --popover-foreground: #1B211A;
+  --primary: #628141;
+  --primary-foreground: #EBD5AB;
+  --secondary: #8BAE66;
+  --secondary-foreground: #1B211A;
+  --muted: #8BAE66;
+  --muted-foreground: #1B211A;
+  --accent: #628141;
+  --accent-foreground: #EBD5AB;
+  --destructive: #e06b6b;
+  --border: rgba(27,33,26,0.15);
+  --input: rgba(27,33,26,0.20);
+  --ring: #628141;
+  --chart-1: #EBD5AB;
+  --chart-2: #8BAE66;
+  --chart-3: #628141;
+  --chart-4: #3c3d37;
+  --chart-5: #1B211A;
+}
+
+/* Dark theme (applies when html has class="dark") */
+html.dark, body.dark,
+html[data-theme="dark"], body[data-theme="dark"] {
+  /* dark palette variables */
   --background: #1e201e;
   --foreground: #ecdfcc;
-
   --card: #3c3d37;
   --card-foreground: #ecdfcc;
   --popover: #3c3d37;
   --popover-foreground: #ecdfcc;
-
   --primary: #697565;
   --primary-foreground: #ecdfcc;
-
   --secondary: #ecdfcc;
   --secondary-foreground: #ecdfcc;
-
   --muted: #697565;
   --muted-foreground: #ecdfcc;
-
   --accent: #697565;
   --accent-foreground: #1e201e;
-
   --destructive: #e06b6b;
-  --border: rgba(236, 223, 204, 0.1);
-  --input: rgba(236, 223, 204, 0.15);
+  --border: rgba(236,223,204,0.1);
+  --input: rgba(236,223,204,0.15);
   --ring: #697565;
-
   --chart-1: #a6b09f;
   --chart-2: #86a08b;
   --chart-3: #697565;
   --chart-4: #3c3d37;
   --chart-5: #1e201e;
 }
+
 
 @layer base {
   * {
@@ -130,5 +147,33 @@
     @apply bg-background text-foreground;
     background-color: var(--background); /* explicit fallback */
     color: var(--foreground);
+  }
+}
+
+
+@layer components  {
+  #oAuth {
+    border-top: 1px solid gray;
+    position: relative;
+    overflow: visible;
+  }
+
+  #oAuth::before {
+    content: "Or Authorize With";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -.75rem;
+
+    display: inline-block;
+    width: max-content;
+    max-width: 75%;
+    box-sizing: border-box;
+    padding: 2px 1rem;
+
+    white-space: nowrap;
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+
+    background: var(--background);
   }
 }
