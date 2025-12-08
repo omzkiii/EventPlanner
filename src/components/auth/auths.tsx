@@ -18,7 +18,10 @@ import {
 import React, { JSX, useEffect, useState } from "react";
 import { Eye, EyeClosed, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+<<<<<<< HEAD
 import UniBtn from "../shared/UniBtn";
+=======
+>>>>>>> 117ae1a21220af7bc4dd4d6a7b50072727b293ef
 
 function GuestDialog(): JSX.Element | null {
   const router = useRouter();
@@ -158,6 +161,7 @@ export default function Auths() {
       <GuestDialog />
 
       <div id="oAuth" className="flex flex-col pt-5 mt-5 gap-3">
+<<<<<<< HEAD
         <UniBtn
             Text="Connect with Google"
             Icon={SiGoogle}
@@ -173,6 +177,36 @@ export default function Auths() {
               await handleLogin("facebook");
             }}
           />
+=======
+        <Button
+          className="w-full"
+          disabled={!!isLoading}
+          onClick={() => handleLogin("google")}
+        >
+          {isLoading === "google" ? (
+            <Loader2 className="animate-spin h-5 w-5" />
+          ) : (
+            <>
+              <SiGoogle className="w-5 h-5 text-secondary" />
+              Connect with Google
+            </>
+          )}
+        </Button>
+        <Button
+          className="w-full"
+          disabled={!!isLoading}
+          onClick={() => handleLogin("facebook")}
+        >
+          {isLoading === "facebook" ? (
+            <Loader2 className="animate-spin h-5 w-5" />
+          ) : (
+            <>
+              <SiFacebook className="w-5 h-5 text-secondary" />
+              Connect with Facebook
+            </>
+          )}
+        </Button>
+>>>>>>> 117ae1a21220af7bc4dd4d6a7b50072727b293ef
       </div>
     </>
   );
