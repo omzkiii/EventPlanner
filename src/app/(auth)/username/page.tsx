@@ -1,109 +1,22 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Eye, Loader2 } from "lucide-react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import "@/assets/extras.css";
-import UniBtn from "@/components/shared/UniBtn";
+// app/username/page.tsx  (this is a SERVER component)
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOption } from "@/app/api/auth/[...nextauth]/route";
+import UsernameClient from "@/components/auth/username";
 
-export default function Username() {
-  const [username, setUsername] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+export default async function UsernamePage() {
+  const session = await getServerSession(authOption);
 
-  const router = useRouter();
-  const { data: session, update } = useSession();
+  // 1. Not logged in → no right to see /username
+  if (!session || !session.user?.email) {
+    redirect("/login");
+  }
 
-  const updateUsername = async (username: string) => {
-    if (!session?.user?.email) return;
+  // 2. Already has username → go to dashboard
+  if (session.user?.username) {
+    redirect("/dsh");
+  }
 
-    try {
-      setIsLoading(true);
-
-      const res = await fetch("/api/auth/username", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        console.error("Update failed:", data);
-        alert(data.error || "Something went wrong updating username");
-        setIsLoading(false);
-        return;
-      }
-
-      update().catch(() => {});
-
-      try { router.prefetch("/dsh"); } catch {}
-
-      router.replace("/dsh");
-
-    } catch (err) {
-      console.error("Unexpected error:", err);
-      alert("Network error while updating username");
-      setIsLoading(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  //Catch
-  useEffect(() => {
-    if (session === undefined) return;
-  
-    if (session && session.user?.username) {
-      router.replace("/dsh");
-    }
-  }, [session, router]);
-
-  return (
-    <div className="flex items-center justify-center h-screen">
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-sans font-extrabold">
-            Set up your Username
-          </CardTitle>
-          <CardDescription className="text-mono">
-            Set your username and let's get started!
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent>
-          <div className="grid gap-4">
-            <div className="grid gap-3">
-              <Label htmlFor="name-1">Username</Label>
-              <Input
-                id="username"
-                name="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                autoComplete="username"
-              />
-            </div>
-          </div>
-        </CardContent>
-
-        <CardFooter>
-        <UniBtn
-            Text="Let's Go!"
-            onClick={() => updateUsername(username)}
-          />
-        </CardFooter>
-      </Card>
-    </div>
-  );
+  // 3. Logged in, no username → show the form
+  return <UsernameClient />;
 }
